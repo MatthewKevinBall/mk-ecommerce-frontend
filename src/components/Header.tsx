@@ -9,7 +9,6 @@ const Header: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     
     const handleLogout = () => {
-        // Handle login logic here
        dispatch(logout());
     };
 
@@ -19,12 +18,12 @@ const Header: React.FC = () => {
             <div className="row">
                     <a href="/">Home</a>
             </div>
-            <div className ="row">
-                <a href="/login">Login</a>
-            </div>
-            {loggedIn && (
+            {loggedIn ? (
                 <div className ="row">
                     <a onClick={handleLogout}>Logout</a>
+                </div>) :
+                (  <div className ="row">
+                    <a href="/login">Login</a>
                 </div>)
             }
         </div>

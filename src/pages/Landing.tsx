@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout';
-
+import axios from 'axios';
 const Landing: React.FC = () => {
     return (
        <Layout>

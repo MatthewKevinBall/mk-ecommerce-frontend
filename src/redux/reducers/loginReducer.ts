@@ -10,10 +10,10 @@ interface LoginState {
   
   const loginReducer = (state = initialState, action: LoginActions): LoginState => {
     switch (action.type) {
-      case 'LOGIN':
-        return { ...state, loggedIn: true };
       case 'LOGOUT':
         return { ...state, loggedIn: false };
+      case 'LOGIN':
+        return { ...state, loggedIn: true };
       default:
         return state;
     }

@@ -6,6 +6,15 @@ const Layout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
           <div className="container">
             <div className="row">
               <div className="col-3">
+                </div>
+                <div className="col-6">
+                  <p>Currently Logged in as!</p>
+                </div>
+                <div className="col-3">
+                </div>
+            </div>
+            <div className="row">
+              <div className="col-3">
                 <Header />
               </div>
               <div className="col-6">
