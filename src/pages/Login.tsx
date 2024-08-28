@@ -1,73 +1,74 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import Input from '../components/Input';
+import FormInput from '../components/Forms/FormInput';
 import Button from '../components/Button';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, logout } from '../redux/actions';
+import { login, logout } from '../redux/actions/loginActions';
 import { RootState, AppDispatch } from '../redux/store';
 import { loginUser } from '../redux/slice/authSliceLogin';
 import Spinner from '../components/Spinner';
-import { formClearErrorMessage } from '../redux/actions';
+import { formClearErrorMessage } from '../redux/actions/formActions';
 import { useNavigate } from 'react-router-dom';
-
-
+import { handleInputChange } from '../utils/forms/formHelpers';
 
 const Login: React.FC = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { loading, errorMessage } = useSelector((state: RootState) => state.form);
-    const loggedIn = useSelector((state: RootState) => state.login.loggedIn);
-    const dispatch = useDispatch<AppDispatch>();
-    const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const [loginFormData, setLoginFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const { loading, errorMessage } = useSelector(
+    (state: RootState) => state.form
+  );
+  const loggedIn = useSelector((state: RootState) => state.login.loggedIn);
 
-    const handleLogin = (e: React.FormEvent) => {
-        e.preventDefault();
+  //Import shared form handler
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    handleInputChange(e, setLoginFormData, loginFormData);
 
-        const userData = {
-            email,
-            password,
-          };
-        dispatch(loginUser(userData));
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(loginUser(loginFormData));
+  };
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/');
+    }
+    return () => {
+      //Clear Error message if leaving page or refreshing
+      dispatch(formClearErrorMessage());
     };
+  }, [loggedIn, navigate, dispatch]);
 
-    useEffect(() => {
-        if (loggedIn) {
-            // Navigate to the index page upon successful login
-            navigate('/');
-        }
-    
-        return () => {
-            dispatch(formClearErrorMessage()); // Optional: Clears error message when component unmounts
-        };
-    }, [loggedIn, navigate, dispatch]);
+  return (
+    <Layout>
+      <h1>Login Page</h1>
+      <p>This is the login page</p>
 
-    return (
-        <Layout>
-            <h1>Login Page</h1>
-            <p>This is the login page</p>
-
-        
-            <form onSubmit={handleLogin}>
-                <Input
-                    placeholder="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <Input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                {loading && (
-                    <Spinner />
-                )}
-                <p>{errorMessage}</p>
-                <Button type="submit">Login</Button>
-            </form>
-            <a href='/register'>Register for an account here</a>
-        </Layout>
-    );
+      <form onSubmit={handleLogin}>
+        <FormInput
+          name='email'
+          type='text'
+          placeholder='email'
+          value={loginFormData.email}
+          onChange={handleFormChange}
+        />
+        <FormInput
+          name='password'
+          type='password'
+          placeholder='Password'
+          value={loginFormData.password}
+          onChange={handleFormChange}
+        />
+        {loading && <Spinner />}
+        <p>{errorMessage}</p>
+        <Button type='submit'>Login</Button>
+      </form>
+      <a href='/register'>Register for an account here</a>
+    </Layout>
+  );
 };
 
 export default Login;

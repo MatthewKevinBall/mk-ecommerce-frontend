@@ -1,19 +1,23 @@
 import React from 'react';
 
-
 interface ButtonProps {
-    onClick?: () => void;
-    type?: 'button' | 'submit' | 'reset';
-    children: React.ReactNode;
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  className?: string;
+  children: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, type = 'button', children ,}) => {
-
-    return (
-       <button onClick={onClick} type={type}>
-          {children}
-        </button>
-      );
-}
+const Button: React.FC<ButtonProps> = ({
+  onClick,
+  type = 'button',
+  children,
+  className,
+}) => {
+  return (
+    <button className={className} onClick={onClick} type={type}>
+      {children}
+    </button>
+  );
+};
 
 export default Button;
