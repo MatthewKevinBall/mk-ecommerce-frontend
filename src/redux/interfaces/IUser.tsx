@@ -4,6 +4,7 @@ export interface IUser {
   lastName: string | null;
   email: string;
   phoneNumber: string | null;
+  userType : string
 }
 
 export const defaultUser: IUser = {
@@ -12,4 +13,5 @@ export const defaultUser: IUser = {
   lastName: '',
   email: '',
   phoneNumber: '',
+  userType : 'User'
 };

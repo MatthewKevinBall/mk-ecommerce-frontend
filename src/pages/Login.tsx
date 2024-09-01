@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout } from '../redux/actions/loginActions';
 import { RootState, AppDispatch } from '../redux/store';
-import { loginUser } from '../redux/slice/authSliceLogin';
+import { loginUser } from '../redux/slice/authLogin';
 import Spinner from '../components/Spinner';
 import { formClearErrorMessage } from '../redux/actions/formActions';
 import { useNavigate } from 'react-router-dom';

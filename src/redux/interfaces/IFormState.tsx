@@ -1,10 +1,10 @@
 export interface IFormState {
   errorMessage: string | null;
-  successMessage: string | null;
+  success: boolean | null;
   loading: boolean;
 }
 export const defaultFormState: IFormState = {
   errorMessage: null,
-  successMessage: null,
+  success: false,
   loading: false,
 };

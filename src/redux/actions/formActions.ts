@@ -5,9 +5,10 @@ export const formSetErrorMessage = (message: string) => ({
 export const formClearErrorMessage = () => ({
   type: 'CLEAR_ERROR' as const,
 });
-export const formSuccessMessage = (message: string) => ({
+
+export const formSubmitted = (success: boolean) => ({
   type: 'SUCCESS' as const,
-  payload: message,
+  payload: success
 });
 
 export const formLoadingStart = () => ({
@@ -19,7 +20,7 @@ export const formLoadingStop = () => ({
 export type FormActions = ReturnType<
   | typeof formSetErrorMessage
   | typeof formClearErrorMessage
-  | typeof formSuccessMessage
+  | typeof formSubmitted
   | typeof formLoadingStart
   | typeof formLoadingStop
 >;

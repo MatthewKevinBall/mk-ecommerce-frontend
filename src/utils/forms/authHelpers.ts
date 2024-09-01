@@ -21,7 +21,8 @@ export const mapLoginResponseToUserData = (jsonResponse: string) => {
     firstName: parsedObject.FirstName,
     lastName: parsedObject.LastName,
     email: parsedObject.Email,
-    phoneNumber: null,
+    phoneNumber: parsedObject.PhoneNumber,
+    userType: parsedObject.UserType,
   };
 
   return user;

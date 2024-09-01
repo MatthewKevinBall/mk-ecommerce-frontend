@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import FormInput from '../components/Forms/FormInput';
 import Button from '../components/Button';
-import { createUser } from '../redux/slice/authSliceRegister';
+import { createUser } from '../redux/slice/authRegister';
 import { RootState, AppDispatch } from '../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import Spinner from '../components/Spinner';
 import { handleInputChange } from '../utils/forms/formHelpers';
-import { formClearErrorMessage } from '../redux/actions/formActions';
+import { formClearErrorMessage, formSubmitted } from '../redux/actions/formActions';
 
 const Register: React.FC = () => {
   const [registerPageFormData, setRegisterPageFormData] = useState({
@@ -30,6 +30,7 @@ const Register: React.FC = () => {
     return () => {
       //Clear Error message if leaving page or refreshing
       dispatch(formClearErrorMessage());
+      dispatch(formSubmitted(false));
     };
   }, [dispatch]);
 

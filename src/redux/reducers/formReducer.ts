@@ -7,7 +7,7 @@ const initialState: IFormState = {
 type FormActions =
   | { type: 'LOADING_START' }
   | { type: 'LOADING_STOP' }
-  | { type: 'SUCCESS'; payload: string }
+  | { type: 'SUCCESS'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string }
   | { type: 'CLEAR_ERROR' };
 
@@ -18,7 +18,7 @@ const formReducer = (state = initialState, action: FormActions): IFormState => {
     case 'LOADING_STOP':
       return { ...state, loading: false };
     case 'SUCCESS':
-      return { ...state, successMessage: action.payload, loading: false };
+      return { ...state, success: action.payload, loading: false };
     case 'SET_ERROR':
       return { ...state, errorMessage: action.payload, loading: false };
     case 'CLEAR_ERROR':

@@ -1,14 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '../store';
-import { IFormState, defaultFormState } from '../interfaces/IFormState';
 import {
   formSetErrorMessage,
   formClearErrorMessage,
-  formSuccessMessage,
   formLoadingStart,
   formLoadingStop,
+  formSubmitted,
 } from '../actions/formActions';
-import { login } from '../actions/loginActions';
 
 // Thunk function to handle the API call
 export const createUser =
@@ -17,9 +14,8 @@ export const createUser =
     try {
       dispatch(formLoadingStart());
       dispatch(formClearErrorMessage());
-
       const response = await fetch(
-        'http://localhost:5125/api/register/add/admin',
+        'http://localhost:5125/api/register/add/user',
         {
           method: 'POST',
           headers: {
@@ -29,13 +25,13 @@ export const createUser =
         }
       );
       const responseMessage = await response.text();
-      console.log(responseMessage);
       if (!response.ok) {
         dispatch(formSetErrorMessage(responseMessage));
         dispatch(formLoadingStop());
         throw new Error('Failed to Register user');
       }
-      dispatch(formSuccessMessage('Created!'));
+      
+      dispatch(formSubmitted(true));
     } catch (error: any) {
       dispatch(formLoadingStop());
       console.log('createUser() error: ' + error);
